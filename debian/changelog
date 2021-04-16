@@ -1,3 +1,9 @@
+kafs-client (0.6-1) unstable; urgency=medium
+
+  * New upstream version.
+
+ -- Bill MacAllister <bill@ca-zephyr.org>  Fri, 16 Apr 2021 06:18:32 +0000
+
 kafs-client (0.5-2) unstable; urgency=medium
 
   * Remove 0.4 patch files not needed in 0.5.
