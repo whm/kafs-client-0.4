@@ -1,0 +1,75 @@
+Index: kafs-client/src/aklog-kafs.c
+===================================================================
+--- kafs-client.orig/src/aklog-kafs.c	2021-04-16 07:53:38.148105206 +0000
++++ kafs-client/src/aklog-kafs.c	2021-04-16 08:03:30.835594700 +0000
+@@ -368,32 +368,37 @@
+ 		case 'd':
+ 			opt_debug = true;
+ 			opt_verbose = true;
++			argc--;
+ 			break;
+ 		case 'h':
+-			opt_help = true;
++			display_usage();
+ 			break;
+ 		case 'v':
+ 			opt_verbose = true;
++			argc--;
+ 			break;
+-		default:
+-			display_usage();
+ 		}
+ 	}
+ 
+-	if (argc - optind > 2) {
+-		fprintf(stderr, "ERROR: too many arguments\n");
+-		display_usage();
++	if (opt_debug) {
++		printf("argc: %d\n", argc);
++		printf("optind: %d\n", optind);
+ 	}
+-	if (strcmp(argv[optind], "--help") == 0) {
++	if (argc > 3) {
++		fprintf(stderr, "ERROR: too many arguments\n");
+ 		display_usage();
+ 	}
+ 
+-	if (argc - optind == 1)
++	if (argc == 1) {
+ 		cell = get_default_cell();
+-	else
++		if (opt_debug) {
++			printf("Cell from /proc/net/afs/rootcell: %s\n", cell);
++		}
++	} else {
+ 		cell = argv[optind];
++	}
+ 
+-	if (argc - optind == 2) {
++	if (argc == 2) {
+ 		realm = strdup(argv[optind + 1]);
+ 		OSZERROR(realm, "strdup");
+ 	} else {
+@@ -402,6 +407,9 @@
+ 		for (p = realm; *p; p++)
+ 			*p = toupper(*p);
+ 	}
++	if (opt_debug) {
++		printf("Realm: %s\n", realm);
++	}
+ 
+ 	for (p = cell; *p; p++)
+ 		*p = tolower(*p);
+@@ -445,8 +453,10 @@
+ 		exit(1);
+ 	}
+ 
+-	printf("plen=%zu tklen=%u rk=%zu\n",
+-	       plen, creds->ticket.length, sizeof(*payload));
++	if (opt_verbose) {
++		printf("plen=%zu tklen=%u rk=%zu\n",
++			plen, creds->ticket.length, sizeof(*payload));
++	}
+ 
+ 	/* use version 1 of the key data interface */
+ 	payload->kver           = 1;
