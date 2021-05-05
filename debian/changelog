@@ -1,4 +1,4 @@
-kafs-client (0.6-1~buster1) unstable; urgency=medium
+kafs-client (0.6-2~buster1) unstable; urgency=medium
 
   * Backport to buster.
 
