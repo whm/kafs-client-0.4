@@ -1,3 +1,9 @@
+kafs-client (0.6-1~buster1) unstable; urgency=medium
+
+  * Backport to buster.
+
+ -- Bill MacAllister <bill@ca-zephyr.org>  Wed, 05 May 2021 07:17:38 +0000
+
 kafs-client (0.6-1) unstable; urgency=medium
 
   * New upstream version.
